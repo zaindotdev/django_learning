@@ -50,4 +50,5 @@ class ProductInfoSerializer(serializers.Serializer):
   
   products = ProductSerializer(many=True)
   count = serializers.IntegerField()
+  max_price = serializers.DecimalField(max_digits=10, decimal_places=2)
   

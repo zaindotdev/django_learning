@@ -8,7 +8,7 @@ class User(AbstractUser):
 class Product(models.Model):
   name = models.CharField(max_length=200)
   description = models.TextField()
-  price = models.DecimalField(decimal_places=4, max_digits=10)
+  price = models.DecimalField(decimal_places=2, max_digits=10)
   stock = models.PositiveIntegerField()
   image = models.ImageField(upload_to='products/', blank=True, null=True)
   

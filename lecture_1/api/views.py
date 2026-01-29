@@ -25,9 +25,8 @@ def product_detail(request, pk):
 
 @api_view(['GET'])
 def order_list(request):
-  orders = Order.objects.all()
-  serializer = OrderSerializer(
-      orders, many=True)
+  orders = Order.objects.prefetch_related('items__product')
+  serializer = OrderSerializer(orders, many=True)
 
   return Response(serializer.data, status=200)
 
@@ -41,4 +40,4 @@ def product_info(request):
     'max_price': products.aggregate(max_price = Max('price'))['max_price']
   })
   
-  return Response(serializer.data, status=200)
+  return Response(serializer.data, status=200)  
