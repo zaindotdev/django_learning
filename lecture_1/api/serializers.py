@@ -9,7 +9,7 @@ from .models import Order, Product, OrderItem, User
 class ProductSerializer(serializers.ModelSerializer):
   class Meta:
     model = Product
-    fields = ('id','name','price','stock')
+    fields = ('name','price','stock')
     
     
     def validate_price(self, value):

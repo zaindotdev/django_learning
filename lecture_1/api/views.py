@@ -15,9 +15,21 @@ from rest_framework import generics, permissions
   
 #   return Response(serializer.data, status=200)
 
-class ProductList(generics.ListAPIView):
-  queryset = Product.objects.filter(stock__gt=0)
+# class ProductList(generics.ListAPIView):
+#   queryset = Product.objects.filter(stock__gt=0)
+#   serializer_class = ProductSerializer
+
+class ProductListCreateView(generics.ListCreateAPIView):
+  queryset = Product.objects.all()
   serializer_class = ProductSerializer
+
+class CreateProduct(generics.CreateAPIView):
+  model = Product
+  serializer_class = ProductSerializer
+
+  # def create(self, request, *args, **kwargs):
+  #   print(request.data)
+  #   return super().create(request, *args, **kwargs)  
 
 # @api_view(['GET'])
 # def product_detail(request, pk):
