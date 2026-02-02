@@ -22,11 +22,18 @@ from rest_framework import generics, permissions
 class ProductListCreateView(generics.ListCreateAPIView):
   queryset = Product.objects.all()
   serializer_class = ProductSerializer
-
+  
+  
 class CreateProduct(generics.CreateAPIView):
   model = Product
   serializer_class = ProductSerializer
-
+  
+  def get_permissions(self):
+    self.permission_classes = [permissions.AllowAny]
+    if self.request.method == 'POST':
+      self.permission_classes = [permissions.IsAdminUser]
+    return super().get_permissions()
+  
   # def create(self, request, *args, **kwargs):
   #   print(request.data)
   #   return super().create(request, *args, **kwargs)  
