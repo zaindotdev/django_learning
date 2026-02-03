@@ -20,13 +20,12 @@ class UserOrderTestCase(TestCase):
     
     assert response.status_code == status.HTTP_200_OK
     orders = response.json()
-    
-    self.assertTrue(all(order['user']['id'] == user.id for order in orders))
+    self.assertTrue(all(order['user'] == user.id for order in orders))
     
     
   def test_user_order_list_unauthenticated(self):
     response = self.client.get(reverse('user_orders'))
-    self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     
     
