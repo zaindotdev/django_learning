@@ -47,11 +47,21 @@ class CreateProduct(generics.CreateAPIView):
 #   return Response(serializer.data, status=200)
 
 
-class ProductDetail(generics.RetrieveAPIView):
-  queryset = Product.objects.all()
-  serializer_class = ProductSerializer
-  lookup_url_kwarg = 'product_id'
+# class ProductDetail(generics.RetrieveAPIView):
+#   queryset = Product.objects.all()
+#   serializer_class = ProductSerializer
+#   lookup_url_kwarg = 'product_id'
   
+class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_url_kwarg = 'product_id'
+    
+    def get_permissions(self):
+      self.permission_classes = [permissions.AllowAny]
+      if self.request.method == "PUT" or self.request.method == "DELETE":
+        self.permission_classes = [permissions.IsAdminUser]
+      return super().get_permissions()
   
 # @api_view(['GET'])
 # def order_list(request):
@@ -98,3 +108,4 @@ class ProductInfo(APIView):
     })
     
     return Response(serializer.data)
+  

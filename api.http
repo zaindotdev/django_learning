@@ -2,13 +2,34 @@ GET http://localhost:8000/products/ HTTP/1.1
 
 ### 
 
+GET http://localhost:8000/products/2/ HTTP/1.1
+
+###
+PUT  http://localhost:8000/products/2/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwMTA2NDQ5LCJpYXQiOjE3NzAxMDYxNDksImp0aSI6ImFjYTE3OWViMjgwNDQxNDViNGM0NWQ4OGJjYmMyNDdkIiwidXNlcl9pZCI6IjEifQ.WZ-QdDT4PLmCMu83LOra0hWEVD0WZswnQ9PFK5gZVYU
+
+{
+  "name":"Television",
+  "price": 300.00,
+  "stock": 10,
+  "description": "Amazing TV with 50' Screen Size"
+}
+
+###
+
+DELETE http://localhost:8000/products/8/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwMTA2NDQ5LCJpYXQiOjE3NzAxMDYxNDksImp0aSI6ImFjYTE3OWViMjgwNDQxNDViNGM0NWQ4OGJjYmMyNDdkIiwidXNlcl9pZCI6IjEifQ.WZ-QdDT4PLmCMu83LOra0hWEVD0WZswnQ9PFK5gZVYU
+
+###
+
 POST http://localhost:8000/products/ HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwMDI3MTc2LCJpYXQiOjE3NzAwMjY4NzYsImp0aSI6IjZhZTdjMmQyMTY4NDRmMzM4OTAyZWFmMzhhNWE1YjRjIiwidXNlcl9pZCI6IjIifQ.FXrmw0cjNNki0_EZhWpM2Es4F1zHANwt6NqrRR9NHdo
 
 {
   "name":"Television",
-  "price": 300.00,
+  "price": 300.00,l
   "stock": 10,
   "description": "Amazing TV"
 }
@@ -35,3 +56,4 @@ Content-Type: application/json
 {
   "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MDE4OTgyMiwiaWF0IjoxNzcwMTAzNDIyLCJqdGkiOiI0NjYxZTVlZTQ5NDI0YTExOTkzOWM2MjYyNDFkMGQ4MSIsInVzZXJfaWQiOiIxIn0.BmbqI7wFsWJ1TPnIj6R11mHk1ADG4ktFPuKSpSL6Xe4"
 }
+
