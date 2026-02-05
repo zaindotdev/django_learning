@@ -9,6 +9,7 @@ from django.db.models import Max
 from rest_framework import generics, permissions, filters
 from api.filters import ProductFilter, InStockFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
  
 # @api_view(['GET'])
 # def product_list(request):
@@ -22,7 +23,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 #   serializer_class = ProductSerializer
 
 class ProductListCreateView(generics.ListCreateAPIView):
-  queryset = Product.objects.all()
+  queryset = Product.objects.order_by('pk')
   serializer_class = ProductSerializer
   # filterset_fields = ('name', 'price')
   filterset_class = ProductFilter
@@ -30,20 +31,26 @@ class ProductListCreateView(generics.ListCreateAPIView):
                      filters.SearchFilter, 
                      filters.OrderingFilter,
                      InStockFilterBackend
-                     ]  
+                    ]  
   # you can use = sign to show the exact match results
   search_fields = ['=name', 'description']
   ordering_fields = ['name', 'price', 'stock']
+  pagination_class = LimitOffsetPagination
+  pagination_class.page_size = 4
+  # pagination_class.page_query_param = 'page_number'
+  # pagination_class.page_size_query_param = 'page_size'
+  # pagination_class.max_page_size = 10
+  pagination_class.default_limit = 10
+  pagination_class.offset_query_param = 'offset'
+  pagination_class.max_limit = 20
+  pagination_class.offset_query_description = 'Number of items to skip'
   
-# class CreateProduct(generics.CreateAPIView):
-#   model = Product
-#   serializer_class = ProductSerializer
   
-#   def get_permissions(self):
-#     self.permission_classes = [permissions.AllowAny]
-#     if self.request.method == 'POST':
-#       self.permission_classes = [permissions.IsAdminUser]
-#     return super().get_permissions()
+  def get_permissions(self):
+    self.permission_classes = [permissions.AllowAny]
+    if self.request.method == 'POST':
+        self.permission_classes = [permissions.IsAdminUser]
+    return super().get_permissions()
   
   # def create(self, request, *args, **kwargs):
   #   print(request.data)
