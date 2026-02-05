@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 # from django.shortcuts import get_object_or_404
 from django.db.models import Max
 from rest_framework import generics, permissions, filters
-from api.filters import ProductFilter
+from api.filters import ProductFilter, InStockFilterBackend
 from django_filters.rest_framework import DjangoFilterBackend
  
 # @api_view(['GET'])
@@ -28,7 +28,9 @@ class ProductListCreateView(generics.ListCreateAPIView):
   filterset_class = ProductFilter
   filter_backends = [DjangoFilterBackend, 
                      filters.SearchFilter, 
-                     filters.OrderingFilter]  
+                     filters.OrderingFilter,
+                     InStockFilterBackend
+                     ]  
   # you can use = sign to show the exact match results
   search_fields = ['=name', 'description']
   ordering_fields = ['name', 'price', 'stock']
