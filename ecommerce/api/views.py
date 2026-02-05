@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 # from django.shortcuts import get_object_or_404
 from django.db.models import Max
-from rest_framework import generics, permissions 
+from rest_framework import generics, permissions, filters
 from api.filters import ProductFilter
+from django_filters.rest_framework import DjangoFilterBackend
  
 # @api_view(['GET'])
 # def product_list(request):
@@ -24,17 +25,23 @@ class ProductListCreateView(generics.ListCreateAPIView):
   queryset = Product.objects.all()
   serializer_class = ProductSerializer
   # filterset_fields = ('name', 'price')
-  filterset_class = ProductFilter  
+  filterset_class = ProductFilter
+  filter_backends = [DjangoFilterBackend, 
+                     filters.SearchFilter, 
+                     filters.OrderingFilter]  
+  # you can use = sign to show the exact match results
+  search_fields = ['=name', 'description']
+  ordering_fields = ['name', 'price', 'stock']
   
-class CreateProduct(generics.CreateAPIView):
-  model = Product
-  serializer_class = ProductSerializer
+# class CreateProduct(generics.CreateAPIView):
+#   model = Product
+#   serializer_class = ProductSerializer
   
-  def get_permissions(self):
-    self.permission_classes = [permissions.AllowAny]
-    if self.request.method == 'POST':
-      self.permission_classes = [permissions.IsAdminUser]
-    return super().get_permissions()
+#   def get_permissions(self):
+#     self.permission_classes = [permissions.AllowAny]
+#     if self.request.method == 'POST':
+#       self.permission_classes = [permissions.IsAdminUser]
+#     return super().get_permissions()
   
   # def create(self, request, *args, **kwargs):
   #   print(request.data)
