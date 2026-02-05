@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 # from django.shortcuts import get_object_or_404
 from django.db.models import Max
 from rest_framework import generics, permissions 
+from api.filters import ProductFilter
  
 # @api_view(['GET'])
 # def product_list(request):
@@ -22,7 +23,8 @@ from rest_framework import generics, permissions
 class ProductListCreateView(generics.ListCreateAPIView):
   queryset = Product.objects.all()
   serializer_class = ProductSerializer
-  
+  # filterset_fields = ('name', 'price')
+  filterset_class = ProductFilter  
   
 class CreateProduct(generics.CreateAPIView):
   model = Product
