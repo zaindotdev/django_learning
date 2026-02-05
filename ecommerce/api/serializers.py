@@ -30,6 +30,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     fields = ('product_name','product_price','quantity', 'item_subtotal')
 
 class OrderSerializer(serializers.ModelSerializer):
+  order_id  = serializers.UUIDField(read_only=True)
   items = OrderItemSerializer(many=True, read_only=True)
   total_price = serializers.SerializerMethodField(method_name='total')
   # user = UserSerializer(read_only=True)
