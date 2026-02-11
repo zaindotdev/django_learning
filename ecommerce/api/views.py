@@ -141,18 +141,25 @@ class ProductInfo(APIView):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.prefetch_related("items__product")
     serializer_class = OrderSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     pagination_class = None
     filterset_class = OrderFilter
     filter_backends = [DjangoFilterBackend]
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs = qs.filter(user=self.request.user)
+        return qs
 
-    @action(
-        detail=False,
-        methods=["get"],
-        url_path="user-orders",
-        permission_classes=[permissions.IsAuthenticated],
-    )
-    def user_orders(self, request):
-        orders = self.get_queryset().filter(user=request.user)
-        seriaizer = self.get_serializer(orders, many=True)
-        return Response(seriaizer.data)
+    # Redundant Code
+    # @action(
+    #     detail=False,
+    #     methods=["get"],
+    #     url_path="user-orders",
+    #     permission_classes=[permissions.IsAuthenticated],
+    # )
+    # def user_orders(self, request):
+    #     orders = self.get_queryset().filter(user=request.user)
+    #     seriaizer = self.get_serializer(orders, many=True)
+    #     return Response(seriaizer.data)
