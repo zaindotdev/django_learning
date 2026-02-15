@@ -40,8 +40,8 @@ POST http://localhost:8000/api/token/ HTTP/1.1
 Content-Type: application/json
 
 {
-  "username":"admin",
-  "password": "test"
+  "username":"zaindotdev",
+  "password": 9246
 }
 
 ###
@@ -64,7 +64,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8000/orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTI4MDQ5LCJpYXQiOjE3NzExMjc3NDksImp0aSI6ImI3YWM0NWQ5MGUyZTQ5NDhiZDZmZTZmYWEzNzAxYjJhIiwidXNlcl9pZCI6IjYifQ.HD8-Vy0zk8CiCyZ-5V-4aFvfkO_GtLD0Eu23cn4sjEE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTQ3MjMxLCJpYXQiOjE3NzExNDM2MzEsImp0aSI6IjE3YjdlYThhMTU0ZTQ4YzdiYjkwMmEyMzZjYzg0YjJkIiwidXNlcl9pZCI6IjYifQ.ujC9sOIJPnOyL3iUuqZcbcdUsnwgim1JDytfdyW7vnM
 Content-Type: application/json
 
 {

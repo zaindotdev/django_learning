@@ -18,6 +18,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 
+from api.tasks import send_order_confirmation_email
+
 # @api_view(['GET'])
 # def product_list(request):
 #   products = Product.objects.all()
@@ -31,6 +33,7 @@ from django.views.decorators.vary import vary_on_headers
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
+    throttle_scope = 'products'
     queryset = Product.objects.order_by("pk")
     serializer_class = ProductSerializer
     # filterset_fields = ('name', 'price')
@@ -153,6 +156,7 @@ class ProductInfo(APIView):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
+    throttle_scope = "orders"
     queryset = Order.objects.prefetch_related("items__product")
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -166,7 +170,10 @@ class OrderViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        order = serializer.save(user=self.request.user)
+        
+        if order is not None:
+            send_order_confirmation_email.delay(order.order_id, self.request.user.email)
 
     def get_serializer_class(self):
         #  can use if self.request.method == "POST":
