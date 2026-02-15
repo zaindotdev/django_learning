@@ -40,8 +40,8 @@ POST http://localhost:8000/api/token/ HTTP/1.1
 Content-Type: application/json
 
 {
-  "username":"zaindotdev",
-  "password": 9246
+  "username":"admin",
+  "password": "test"
 }
 
 ###
@@ -51,7 +51,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ###
 GET http://localhost:8000/orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcwODAyNDM5LCJpYXQiOjE3NzA4MDIxMzksImp0aSI6ImJhNTkyMDdjOWE4NTQyMWJhNjlkODQyODcwMTkyZGRiIiwidXNlcl9pZCI6IjYifQ.d0UYHonxm4ATfk9vf0niZ7Ujly51srW8G-BSAmEMQAg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTM1MjA2LCJpYXQiOjE3NzExMzQ5MDYsImp0aSI6IjM4MzlhNThlYzQ1MTRhMTk5NWI5YjM4OGUyMWMyNDRkIiwidXNlcl9pZCI6IjEifQ.Hd2omJTbn0pQYOI0AdcNKHNPpczLoZfPO-au08G8DSA
 
 ###
 POST http://localhost:8000/api/token/refresh/ HTTP/1.1
@@ -80,3 +80,30 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+GET http://localhost:8000/orders/029c188f-0637-42e3-a6f1-7a0854bb2d80/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTMwNzA0LCJpYXQiOjE3NzExMzA0MDQsImp0aSI6IjhjYTg1Mjg4OWY3NDQ0YjRiYzkwNmM2ODdhNDFlZDViIiwidXNlcl9pZCI6IjYifQ.5jyhg6zpcBRfqKPG9G5GhSCmPX5jjOANhSsIOXJd2yI
+
+###
+PUT http://localhost:8000/orders/029c188f-0637-42e3-a6f1-7a0854bb2d80/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTMwMjQ1LCJpYXQiOjE3NzExMjk5NDUsImp0aSI6ImIxOTZhODM4MWY4OTRjYjJiNGVlYmY4OTgwMTg2ODUwIiwidXNlcl9pZCI6IjYifQ.fBhhUmVolYwR7AOmYi_XdQytVNZAJEMsMumcd-LN17w
+
+{
+  "status": "Pending", 
+  "items": [ 
+    {
+      "product": 2, 
+        "quantity": 1
+    },
+    {
+      "product": 3, 
+      "quantity": 0
+    }
+  ]
+}
+
+###
+DELETE http://localhost:8000/orders/029c188f-0637-42e3-a6f1-7a0854bb2d80/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMTMwMjQ1LCJpYXQiOjE3NzExMjk5NDUsImp0aSI6ImIxOTZhODM4MWY4OTRjYjJiNGVlYmY4OTgwMTg2ODUwIiwidXNlcl9pZCI6IjYifQ.fBhhUmVolYwR7AOmYi_XdQytVNZAJEMsMumcd-LN17w
