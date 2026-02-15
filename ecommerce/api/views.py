@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 
 from api.filters import InStockFilterBackend, OrderFilter, ProductFilter
 from api.models import Order, Product
-from api.serializers import OrderSerializer, ProductInfoSerializer, ProductSerializer
+from api.serializers import OrderSerializer, ProductInfoSerializer, ProductSerializer, OrderCreateSerializer
 
 # @api_view(['GET'])
 # def product_list(request):
@@ -146,12 +146,22 @@ class OrderViewSet(viewsets.ModelViewSet):
     filterset_class = OrderFilter
     filter_backends = [DjangoFilterBackend]
     
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+    
+    def get_serializer_class(self):
+        #  can use if self.request.method == "POST":
+        if self.action == 'create':
+            return OrderCreateSerializer
+        return super().get_serializer_class()
+
     def get_queryset(self):
         qs = super().get_queryset()
         if not self.request.user.is_staff:
             qs = qs.filter(user=self.request.user)
         return qs
-
+    
+    
     # Redundant Code
     # @action(
     #     detail=False,
